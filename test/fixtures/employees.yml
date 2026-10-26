@@ -1,17 +1,20 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  email: MyString
-  phone: MyString
-  department: MyString
-  salary: 1
-  manager_id: 1
+  name: Morgan Lee
+  email: morgan.lee@example.test
+  phone: 555-0100
+  department: operations
+  salary: 75000
+  active: true
+  joining_date: 2020-01-10
 
 two:
-  name: MyString
-  email: MyString
-  phone: MyString
-  department: MyString
-  salary: 1
-  manager_id: 1
+  name: Riley Patel
+  email: riley.patel@example.test
+  phone: 555-0102
+  department: engineering
+  salary: 82000
+  manager_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  active: false
+  joining_date: 2024-05-01

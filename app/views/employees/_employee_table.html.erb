@@ -1,0 +1,51 @@
+<% if employees.any? %>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Employee ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Department</th>
+          <th scope="col">Manager</th>
+          <th scope="col">Status</th>
+          <th scope="col">Joining date</th>
+          <th scope="col" class="text-end">Salary</th>
+          <th scope="col" class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% employees.each do |employee| %>
+          <tr>
+            <td><%= employee.id %></td>
+            <td class="fw-semibold"><%= employee.name %></td>
+            <td><%= mail_to employee.email %></td>
+            <td><%= employee.phone %></td>
+            <td><%= employee.department.name %></td>
+            <td><%= employee.manager&.name || "—" %></td>
+            <td><span class="badge <%= employee.active? ? "text-bg-success" : "text-bg-secondary" %>"><%= employee.status %></span></td>
+            <td><%= l(employee.joining_date, format: :long) %></td>
+            <td class="text-end"><%= number_to_currency(employee.salary, precision: 0) %></td>
+            <td class="text-end text-nowrap">
+              <%= link_to "View", employee_path(employee), class: "btn btn-sm btn-outline-primary" %>
+              <%= link_to "Edit", edit_employee_path(employee), class: "btn btn-sm btn-outline-secondary" %>
+              <%= button_to "Delete", employee_path(employee), method: :delete,
+                    form_class: "d-inline",
+                    class: "btn btn-sm btn-outline-danger",
+                    data: { turbo_confirm: "Delete #{employee.name}?" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="card border-0 bg-body-tertiary text-center">
+    <div class="card-body py-5">
+      <h2 class="h5">No employees yet</h2>
+      <p class="text-body-secondary">Add your first employee to get started.</p>
+      <%= link_to "Add employee", new_employee_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<div class="card shadow-sm">
+  <div class="card-body p-4">
+    <%= form_with model: department do |form| %>
+      <% if department.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <h2 class="h6"><%= pluralize(department.errors.count, "error") %> prevented this department from being saved:</h2>
+          <ul class="mb-0">
+            <% department.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, class: "form-control", required: true, autofocus: true %>
+      </div>
+
+      <div class="d-flex gap-2">
+        <%= form.submit(department.persisted? ? "Save changes" : "Create department", class: "btn btn-primary") %>
+        <%= link_to "Cancel", department.persisted? ? department_path(department) : departments_path,
+              class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

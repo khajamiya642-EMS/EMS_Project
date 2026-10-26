@@ -1,0 +1,42 @@
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div>
+    <h1 class="h2 mb-1">Teams by manager</h1>
+    <p class="text-body-secondary mb-0">Browse each manager's direct reports.</p>
+  </div>
+  <%= link_to "All employees", employees_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<% if @managers.empty? && @unassigned_employees.empty? %>
+  <div class="card border-0 bg-body-tertiary text-center">
+    <div class="card-body py-5">
+      <h2 class="h5">No employees yet</h2>
+      <%= link_to "Add employee", new_employee_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<% @managers.each do |manager| %>
+  <section class="card shadow-sm mb-4">
+    <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div>
+        <h2 class="h5 mb-0"><%= link_to manager.name, employee_path(manager) %></h2>
+        <span class="small text-body-secondary"><%= manager.department.name %> · <%= pluralize(manager.subordinates.size, "team member") %></span>
+      </div>
+      <%= link_to "View team", subordinates_employee_path(manager), class: "btn btn-sm btn-outline-primary" %>
+    </div>
+    <div class="card-body">
+      <%= render "employee_table", employees: manager.subordinates.sort_by(&:name) %>
+    </div>
+  </section>
+<% end %>
+
+<% if @unassigned_employees.any? %>
+  <section class="card shadow-sm mb-4">
+    <div class="card-header bg-white">
+      <h2 class="h5 mb-0">Employees without a manager</h2>
+    </div>
+    <div class="card-body">
+      <%= render "employee_table", employees: @unassigned_employees %>
+    </div>
+  </section>
+<% end %>

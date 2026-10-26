@@ -1,2 +1,6 @@
-<h1>Employees#edit</h1>
-<p>Find me in app/views/employees/edit.html.erb</p>
+<div class="mb-4">
+  <h1 class="h2 mb-1">Edit employee</h1>
+  <p class="text-body-secondary mb-0">Update <%= @employee.name %>'s information.</p>
+</div>
+
+<%= render "form", employee: @employee, managers: @managers, departments: @departments %>

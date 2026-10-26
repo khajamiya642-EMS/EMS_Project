@@ -1,2 +1,6 @@
-<h1>Employees#new</h1>
-<p>Find me in app/views/employees/new.html.erb</p>
+<div class="mb-4">
+  <h1 class="h2 mb-1">Add employee</h1>
+  <p class="text-body-secondary mb-0">Enter the employee's information below.</p>
+</div>
+
+<%= render "form", employee: @employee, managers: @managers, departments: @departments %>

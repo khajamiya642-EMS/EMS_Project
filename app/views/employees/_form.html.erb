@@ -1,0 +1,59 @@
+<div class="card shadow-sm">
+  <div class="card-body p-4">
+    <%= form_with model: employee do |form| %>
+      <% if employee.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <h2 class="h6"><%= pluralize(employee.errors.count, "error") %> prevented this employee from being saved:</h2>
+          <ul class="mb-0">
+            <% employee.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, class: "form-control", required: true, autocomplete: "name" %>
+        </div>
+        <div class="col-md-6">
+          <%= form.label :email, class: "form-label" %>
+          <%= form.email_field :email, class: "form-control", required: true, autocomplete: "email" %>
+        </div>
+        <div class="col-md-6">
+          <%= form.label :phone, class: "form-label" %>
+          <%= form.telephone_field :phone, class: "form-control", required: true, autocomplete: "tel" %>
+        </div>
+        <div class="col-md-6">
+          <%= form.label :department_id, "Department", class: "form-label" %>
+          <%= form.collection_select :department_id, departments, :id, :name,
+                { include_blank: "Select a department" }, class: "form-select", required: true %>
+        </div>
+        <div class="col-md-6">
+          <%= form.label :salary, class: "form-label" %>
+          <%= form.number_field :salary, class: "form-control", min: 0, step: 1, required: true %>
+        </div>
+        <div class="col-md-6">
+          <%= form.label :manager_id, "Manager", class: "form-label" %>
+          <%= form.collection_select :manager_id, managers, :id, :name,
+                { include_blank: "No manager" }, class: "form-select" %>
+        </div>
+        <div class="col-md-6">
+          <%= form.label :joining_date, "Joining date", class: "form-label" %>
+          <%= form.date_field :joining_date, class: "form-control", required: true %>
+        </div>
+        <div class="col-md-6">
+          <%= form.label :active, "Employment status", class: "form-label" %>
+          <%= form.select :active, [["Active", true], ["Inactive", false]],
+                {}, class: "form-select" %>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-4">
+        <%= form.submit(employee.persisted? ? "Save changes" : "Create employee", class: "btn btn-primary") %>
+        <%= link_to "Cancel", employee.persisted? ? employee_path(employee) : employees_path, class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,24 +1,30 @@
-# README
+# Employee Manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails employee directory with Devise authentication and Bootstrap styling.
+Signed-in users can create, view, edit, and delete employees; create departments;
+assign employees to departments and managers; browse manager-wise teams; search
+by employee name, ID, email, department, or manager; and filter by department,
+manager, active status, and joining-date range. Department pages display their
+employee counts.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+Install the Ruby gems, prepare the SQLite database, and start Rails:
 
-* System dependencies
+```sh
+bundle install
+bin/rails db:prepare
+bin/rails server
+```
 
-* Configuration
+Open the URL shown by the server and register an account to sign in.
+Create a department first, then assign it when creating an employee. Existing
+department names are migrated into department records.
 
-* Database creation
+## Tests
 
-* Database initialization
+Run the application test suite with:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+bin/rails test
+```
